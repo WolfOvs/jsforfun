@@ -11,8 +11,8 @@ module = function () {
             .then(data => {
                 products = data.products;
                 show(data.products);
-                cartUnique = data.cart.cartlist;
-                showCart(data.cart.cartlist, data.cart.total);
+                cartUnique = data.cart;
+                showCart(data.cart);
             });
     };
     var show = function (array) {
@@ -28,10 +28,11 @@ module = function () {
               </div>
               <div class="card-footer bg-light">
                 <b>Price: ${product.price}&dollar;</b>
-                <button style="margin-left: 100px;" onclick="module.addToCart(${product.id})" class="btn btn-primary">Buy Product</button>
+                <button style="margin-left: 100px;"  ${product.avaiability ? '' : 'disabled'} onclick="module.addToCart(${product.id})" class="btn btn-primary">Buy Product</button>
               </div>
             </div>
             `;
+
         }).join('');
         productsList.innerHTML = html;
     };
@@ -41,6 +42,7 @@ module = function () {
         array = Array.isArray(array) ? array : defaultCart;
         const html = array.map(product => {
             return `<div class="panel-body">
+                    <i onclick="module.removeProduct(${product.id})" class="fas fa-trash-alt"></i>
                     <h1>${product.name}</h1>
                     <b>Price: ${product.price}</b>
                     </div>
@@ -48,12 +50,6 @@ module = function () {
         }).join('');
         cart.innerHTML = "";
         cart.innerHTML = cart.innerHTML + html;
-        totalDom.innerHTML = 
-        `<div class="panel-body">
-            <h1>TOTALE</h1>
-            <b>${total}</b>
-       </div>
-       `;
     };
     var addToCart = function (id) {
         var total = 0;
@@ -69,6 +65,15 @@ module = function () {
         }
         if (!found) {
             cartUnique.push(productAdded[0]);
+            fetch(serverAdd, { method: "POST",
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+             body: JSON.stringify(productAdded[0])})
+            .catch((errore) => {
+                console.log(errore);
+            });
         }
         const totalArray = cartUnique.map(product => {
             return product.price;
@@ -76,21 +81,39 @@ module = function () {
         totalArray.forEach(productTotal => {
             total = total + productTotal;
         });
-        let body = {
-            "total": total,
-            "cartlist": cartUnique
-        };
-        fetch(serverAdd, { method: "POST",
-        headers: {
-          'Accept': 'application/json, text/plain, */*',
-          'Content-Type': 'application/json'
-        },
-         body: JSON.stringify(body)})
-        .catch((errore) => {
-            console.log(errore);
-        });
         showCart(cartUnique, total);
+        $(window).scrollTop(0);
     };
-    return { init: init, show: show, addToCart: addToCart, showCart:showCart }
+    var removeProduct = function(id){
+            var total = 0;
+            const productAdded = products.filter(product => {
+                return product.id != id;
+            });
+            cartUnique.pop(productAdded[0]);
+            const totalArray = cartUnique.map(product => {
+                return product.price;
+            });
+            totalArray.forEach(productTotal => {
+                total = total + productTotal;
+            });
+            let body = {
+                "cart": cartUnique
+            };
+            fetch(serverAdd+"/"+id, { method: "DELETE"});
+            showCart(cartUnique, total);
+        };
+        var filter = function(){
+            const categoria = document.querySelector("#filter").value;
+            if(categoria != "ALL"){
+            const productFilter = products.filter(product => {
+                return product.category == categoria;
+            });
+            show(productFilter);
+            }
+            else {
+                show(products);
+            }
+        }
+    return { init: init, show: show, addToCart: addToCart, showCart:showCart, removeProduct:removeProduct, filter:filter }
 }();
 module.init();
