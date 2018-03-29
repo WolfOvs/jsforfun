@@ -82,18 +82,8 @@
     }
   ],
   "cart": {
-    "total": 1610,
+    "total": 1300,
     "cartlist": [
-      {
-        "id": 2,
-        "name": "Samsung Galaxy",
-        "description": "An more or less an awesome smartphone",
-        "img": "https://staticshop.o2.co.uk/product/images/iphone_se_16gb_rose_gold_header.png?cb=ca87b899b2ffa0499b9a577d0931ff3f",
-        "category": "smartphone",
-        "price": 400,
-        "avaiability": false,
-        "quantity": 0
-      },
       {
         "id": 1,
         "name": "iPhone X",
@@ -105,6 +95,16 @@
         "quantity": 5
       },
       {
+        "id": 2,
+        "name": "Samsung Galaxy",
+        "description": "An more or less an awesome smartphone",
+        "img": "https://staticshop.o2.co.uk/product/images/iphone_se_16gb_rose_gold_header.png?cb=ca87b899b2ffa0499b9a577d0931ff3f",
+        "category": "smartphone",
+        "price": 400,
+        "avaiability": false,
+        "quantity": 0
+      },
+      {
         "id": 3,
         "name": "Nokia Lumia 330",
         "description": "An bad smartphone",
@@ -113,26 +113,6 @@
         "price": 200,
         "avaiability": true,
         "quantity": 10
-      },
-      {
-        "id": 4,
-        "name": "Huawei",
-        "description": "An awesome smartphone",
-        "img": "https://staticshop.o2.co.uk/product/images/iphone_se_16gb_rose_gold_header.png?cb=ca87b899b2ffa0499b9a577d0931ff3f",
-        "category": "smartphone",
-        "price": 300,
-        "avaiability": true,
-        "quantity": 110
-      },
-      {
-        "id": 5,
-        "name": "Il buon programmatore",
-        "description": "the best book",
-        "img": "http://i.l43.cdn-news30.it/blobs/variants/3/9/5/b/395b19de-b863-4410-9267-df460304333b_medium.jpg?_636151597453477152",
-        "category": "books",
-        "price": 10,
-        "avaiability": true,
-        "quantity": 1110
       }
     ]
   }

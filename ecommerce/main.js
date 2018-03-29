@@ -1,6 +1,6 @@
 module = function () {
     const server = "http://localhost:3000/db";
-    const serverAdd = "http://localhost:3000/cart"
+    const serverAdd = "http://localhost:3000/cart";
     const defaultProduct = [{ name: "No Products Found" }];
     const defaultCart = [{total: 0}];
     var products = [];
@@ -9,10 +9,10 @@ module = function () {
         fetch(server)
             .then(blob => blob.json())
             .then(data => {
-                show(data.products);
                 products = data.products;
-                showCart(data.cart.cartlist, data.cart.total);
+                show(data.products);
                 cartUnique = data.cart.cartlist;
+                showCart(data.cart.cartlist, data.cart.total);
             });
     };
     var show = function (array) {
@@ -28,7 +28,7 @@ module = function () {
               </div>
               <div class="card-footer bg-light">
                 <b>Price: ${product.price}&dollar;</b>
-                <a style="margin-left: 100px;" onclick="module.addToCart(${product.id})" class="btn btn-primary">Buy Product</a>
+                <button style="margin-left: 100px;" onclick="module.addToCart(${product.id})" class="btn btn-primary">Buy Product</button>
               </div>
             </div>
             `;
@@ -60,7 +60,14 @@ module = function () {
         const productAdded = products.filter(product => {
             return product.id == id;
         });
-        if (!cartUnique.includes(productAdded[0])) {
+        var found = false;
+        for(var i = 0; i < cartUnique.length; i++) {
+        if (cartUnique[i].id == id) {
+            found = true;
+            break;
+        }
+        }
+        if (!found) {
             cartUnique.push(productAdded[0]);
         }
         const totalArray = cartUnique.map(product => {
