@@ -114,6 +114,14 @@ module = function () {
                 show(products);
             }
         }
-    return { init: init, show: show, addToCart: addToCart, showCart:showCart, removeProduct:removeProduct, filter:filter }
+        var orderUp = function () {
+            products.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+            show(products);
+        }
+         var orderDown = function () {
+            products.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
+            show(products);
+    }
+    return { init: init, show: show, addToCart: addToCart, showCart:showCart, removeProduct:removeProduct, filter:filter, orderUp:orderUp, orderDown:orderDown}
 }();
 module.init();
