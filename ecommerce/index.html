@@ -14,34 +14,122 @@
 
 <body>
     <div class="container">
-        <div class="row">
-            <select class="form-control" id="filter" onchange="module.filter()">
-                <option value="ALL">All</option>
-                <option value="books">Books</option>
-                <option value="smartphone">smartphone</option>
-            </select>
-            <button onclick="module.orderUp()"><span class="fas fa-arrow-circle-up"></span></button>
-            <button onclick="module.orderDown()"><span class="fas fa-arrow-circle-down"></span></button>
-        </div>
-        <div class="row">
-            <div class="col-md-6 col-xs-6" id="products">
-            </div>
-            <div class="col-md-6 col-xs-6">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Cart</h3>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="panel-body" id="cart">
-
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="idProduct">ID</label>
+                                <input type="number" name="id" class="form-control" id="idProduct" aria-describedby="idProduct" placeholder="Enter id">
+                                <label for="nameProduct">Name</label>
+                                <input type="text" name="name" class="form-control" id="nameProduct" aria-describedby="nameProduct" placeholder="Enter name">
+                                <label for="descriptionProduct">Description</label>
+                                <input type="text" name="description" class="form-control" id="descriptionProduct" aria-describedby="descriptionProduct"
+                                    placeholder="Enter description">
+                                <label for="imgProduct">Image</label>
+                                <input type="text" name="img" class="form-control" id="imgProduct" aria-describedby="imgProduct" placeholder="Enter image link">
+                                <label for="categoryProduct">Category</label>
+                                <input type="text" name="category" class="form-control" id="categoryProduct" aria-describedby="categoryProduct" placeholder="Enter category">
+                                <label for="priceProduct">Price</label>
+                                <input type="text" name="price" class="form-control" id="priceProduct" aria-describedby="priceProduct" placeholder="Enter price">
+                                <label for="quantityProduct">Quantity</label>
+                                <input type="number" name="quantity" class="form-control" id="quantityProduct" aria-describedby="quantityProduct" placeholder="Enter quantity">
+                                <button style="margin-top: 10px;" type="button" onclick="module.addProduct()" class="btn btn-primary">Add</button>
+                                <span id="result"></span>
+                            </div>
+                        </form>
                     </div>
-                    <div class="panel-footer" id="total">
-                        
+                    <div class="modal-footer">
                     </div>
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label style="display: none" for="idProductEdit">ID</label>
+                                <input style="display: none" type="text" disabled name="id" class="form-control" id="idProductEdit" aria-describedby="idProductEdit">
+                                <label for="nameProductEdit">Name</label>
+                                <input type="text" name="name" class="form-control" id="nameProductEdit" aria-describedby="nameProduct" placeholder="Enter name">
+                                <label for="descriptionProductEdit">Description</label>
+                                <input type="text" name="description" class="form-control" id="descriptionProductEdit" aria-describedby="descriptionProduct"
+                                    placeholder="Enter description">
+                                <label for="imgProductEdit">Image</label>
+                                <input type="text" name="img" class="form-control" id="imgProductEdit" aria-describedby="imgProduct" placeholder="Enter image link">
+                                <label for="categoryProductEdit">Category</label>
+                                <input type="text" name="category" class="form-control" id="categoryProductEdit" aria-describedby="categoryProduct" placeholder="Enter category">
+                                <label for="priceProductEdit">Price</label>
+                                <input type="text" name="price" class="form-control" id="priceProductEdit" aria-describedby="priceProduct" placeholder="Enter price">
+                                <label for="quantityProductEdit">Quantity</label>
+                                <input type="number" name="quantity" class="form-control" id="quantityProductEdit" aria-describedby="quantityProduct" placeholder="Enter quantity">
+                                <label for="avaiabilityProductEdit">Availability</label>
+                                <select id="avaiabilityProductEdit" class="form-control">
+                                    <option value="true">Available</option>
+                                    <option value="false">Not Available</option>
+                                </select>
+                                <button style="margin-top: 10px;" type="button" onclick="module.editProduct()" class="btn btn-primary">Edit</button>
+                                <span id="resultEdit"></span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="margin: 20px">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">
+                <i class="fas fa-plus"></i>
+            </button>
+            <button class="btn btn-primary" onclick="module.orderUp()">
+                <span class="fas fa-arrow-circle-up"></span>
+            </button>
+            <button class="btn btn-primary" onclick="module.orderDown()">
+                <span class="fas fa-arrow-circle-down"></span>
+            </button>
+            <button class="btn btn-primary" onclick="location.reload()">
+                <span class="fas fa-sync-alt"></span>
+            </button>
+        </div>
+        <div class="row">
+            <select class="form-control" id="filter" align="right" onchange="module.filter()">
+                <option value="ALL">All</option>
+                <option value="books">Books</option>
+                <option value="smartphone">smartphone</option>
+            </select>
+            <div class="col-md-6 col-xs-6" id="products">
+            </div>
+            <div class="col-md-6 col-xs-6">
+                <div class="card" style="margin: 50px">
+                    <div class="card-header">
+                        Cart
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <ul class="list-group list-group-flush" id="cart">
+
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+        crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
