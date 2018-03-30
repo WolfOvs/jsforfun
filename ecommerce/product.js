@@ -1,7 +1,20 @@
 module = function () {
-    const server = "http://localhost:3000/products/";
     var product =  JSON.parse(localStorage.getItem("product"));
     var init = function(){
+        const gallery = product.gallery;
+        console.log(gallery.length);
+        if(gallery != undefined){
+           const html =  gallery.map(gallery => {
+                return `<img class="img-responsive" src="${gallery}" />
+                `;
+            }).join('');
+            document.querySelector(".product-gallery").innerHTML = html;
+            $('.product-gallery').slick({
+                infinite: true,
+                slidesToShow: 1,
+                slidesToScroll: 1
+              });
+        }
         document.querySelector("#product").innerHTML = `
         <div class="card mx-auto" style="width:400px; margin: 50px; overflow: hidden;">
               <img class="card-img-top" src="${product.img}" alt="Product Image" style="width:100%">

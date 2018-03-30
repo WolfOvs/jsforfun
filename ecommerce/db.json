@@ -4,6 +4,7 @@
       "name": "iPhone X",
       "description": "An awesome smartphone",
       "img": "https://staticshop.o2.co.uk/product/images/iphone_se_16gb_rose_gold_header.png?cb=ca87b899b2ffa0499b9a577d0931ff3f",
+      "gallery": ["https://cdn-images-1.medium.com/max/800/1*T5bwDptirJm0MwKL1cYb8g.png","https://cdn-images-1.medium.com/max/800/1*T5bwDptirJm0MwKL1cYb8g.png"],
       "category": "smartphone",
       "price": "700",
       "avaiability": true,
