@@ -2,7 +2,6 @@ module = function () {
     var product =  JSON.parse(localStorage.getItem("product"));
     var init = function(){
         const gallery = product.gallery;
-        console.log(gallery.length);
         if(gallery != undefined){
            const html =  gallery.map(gallery => {
                 return `<img class="img-responsive" src="${gallery}" />
