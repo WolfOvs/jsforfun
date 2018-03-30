@@ -46,7 +46,7 @@ module = function () {
             return `<li class="list-group-item">
                     <i style="float: right" onclick="module.removeProduct(${product.id})" class="fas fa-trash-alt"></i>
                     <h3 class="text-center">${product.name}</h3>
-                    <p>Price: ${product.price}&dollar;</p>
+                    <p>Price : ${product.price}&dollar;</p>
                     </li>
             `;
         }).join('');
