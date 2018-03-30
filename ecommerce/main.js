@@ -22,7 +22,7 @@ module = function () {
         const html = array.map(product => {
             return `
               <div class="card mx-auto" style="width:400px; margin: 50px; overflow: hidden;">
-              <img class="card-img-top" src="${product.img}" alt="Product Image" style="width:100%">
+              <img class="card-img-top" src="${product.img}" alt="Product Image" style="width:100%" onclick="module.showProduct(${product.id})">
               <div class="card-body">
                 <h4 class="card-title">${product.name}</h4>
                 <p class="card-text">${product.description}</p>
@@ -250,6 +250,13 @@ module = function () {
             });
             window.setTimeout( location.reload(), 3000);
     }
-    return { init: init, show: show, addToCart: addToCart, showCart: showCart, removeProduct: removeProduct, filter: filter, orderUp: orderUp, orderDown: orderDown, addProduct: addProduct, preEditProduct: preEditProduct, editProduct:editProduct }
+    var showProduct = function(id){
+        const productShow = products.filter(product => {
+            return product.id == id;
+        });
+        localStorage.setItem("product", JSON.stringify(productShow[0]));
+        window.location.href="product.html";
+    }
+    return { init: init, show: show, addToCart: addToCart, showCart: showCart, removeProduct: removeProduct, filter: filter, orderUp: orderUp, orderDown: orderDown, addProduct: addProduct, preEditProduct: preEditProduct, editProduct:editProduct, showProduct:showProduct }
 }();
 module.init();
