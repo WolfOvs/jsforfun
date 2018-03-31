@@ -93,7 +93,6 @@ module = function () {
         const productAdded = products.filter(product => {
             return product.id != id;
         });
-        cartUnique.pop(productAdded[0]);
         const totalArray = cartUnique.map(product => {
             return product.price;
         });
@@ -104,7 +103,8 @@ module = function () {
             "cart": cartUnique
         };
         fetch(serverAdd + "/" + id, { method: "DELETE" });
-        showCart(cartUnique, total);
+        cartUnique.pop(productAdded[0]);
+        location.reload();
     };
     var filter = function () {
         const categoria = document.querySelector("#filter").value;
